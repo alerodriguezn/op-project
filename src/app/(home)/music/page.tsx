@@ -3,6 +3,7 @@ import { IoIosMusicalNote } from "react-icons/io";
 import { GiGuitarBassHead } from "react-icons/gi"
 import { PiMicrophoneStageBold } from "react-icons/pi";
 import { BiSolidPiano } from "react-icons/bi";
+import Link from "next/link";
 
 export default function MusicPage() {
   return (
@@ -18,24 +19,26 @@ export default function MusicPage() {
       <section className="w-1/2">
         <h2 className="text-2xl font-bold mb-2">Categories</h2>
         <div className="grid grid-cols-4 gap-2">
-          <div className=" flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
+          <Link href={"/"} className=" flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <IoIosMusicalNote size={35}/>
             <h3>Pop</h3>
-          </div>
-          <div className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
+          </Link>
+          <Link href={"/music/genre/Rock"} className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <GiGuitarBassHead size={35}/>
             <h3>Rock</h3>
-          </div>
-          <div className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
+          </Link>
+          <Link href={"/music/genre/HipHop"} className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <PiMicrophoneStageBold size={35}/>
             <h3>Hip Hop</h3>
-          </div>
+          </Link>
           <div className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <BiSolidPiano size={35}/>
             <h3>Classic</h3>
           </div>
         </div>
       </section>
+
+      
     </div>
   );
 }
