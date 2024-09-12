@@ -1,14 +1,16 @@
-import { TopMenu } from '@/components/ui/top-menu';
+import { Player } from "@/components/music/player";
+import { TopMenu } from "@/components/ui/top-menu";
 
 export default function HomeLayout({
- children
+  children,
 }: {
- children: React.ReactNode;
+  children: React.ReactNode;
 }) {
   return (
     <main className="min-h-screen">
-        <TopMenu/>
-      { children }
+      <TopMenu />
+      {children}
+      <Player/>
     </main>
   );
 }

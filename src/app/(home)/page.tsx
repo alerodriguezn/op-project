@@ -1,7 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function HomePage() {
+import { prisma } from "@/lib/prisma";
+
+export default async function HomePage() {
+
+  
+
+  const getMovies = async () => {
+    "use server"
+    const movies = await prisma.movie.findMany();
+    console.log(movies);
+
+  }
+  getMovies();
+
   return (
     <div className="">
       <div className="flex justify-center">

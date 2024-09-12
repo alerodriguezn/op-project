@@ -1,58 +1,129 @@
-
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+enum Role {
+  admin
+  user
+}
+
 model User {
-  id       Int       @id @default(autoincrement())
-  apell    String
-  name     String
-  email    String
-  libraries Library[] // Relación inversa con el modelo Library
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  role          Role            @default(user)
+  Authenticator Authenticator[]
+
+  Library Library?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Playlist Playlist[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
 }
 
 model Movie {
-  id          Int      @id @default(autoincrement())
-  title       String  
-  description String  
-  sinopsis    String  
-  genre       String  
-  url         String  
-  duration    Int     
-  rating      Float?  
-  releaseDate DateTime
-  createdAt   DateTime @default(now())  
-  updatedAt   DateTime @updatedAt  
-  librariesMovies LibraryMovie[]     
+  id              Int            @id @default(autoincrement())
+  title           String
+  description     String
+  sinopsis        String
+  genre           String
+  url             String
+  duration        Int
+  rating          Float?
+  releaseDate     DateTime
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  librariesMovies LibraryMovie[]
 }
 
 model Song {
-  id          Int      @id @default(autoincrement())
-  title       String   
-  artist      String   
-  album       String?  
-  genre       String  
-  url         String   
-  duration    Int      
-  createdAt   DateTime @default(now()) 
-  updatedAt   DateTime @updatedAt
-  librariesSongs LibrarySong[]     
+  id             Int           @id @default(autoincrement())
+  title          String
+  artist         String
+  album          String?
+  genre          String
+  url            String
+  imageUrl       String?
+  duration       Int
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  Playlist       Playlist[]
 }
 
 model Library {
-  id     Int           @id @default(autoincrement())
-  name   String
-  user   User          @relation(fields: [userId], references: [id])
-  userId Int
-  movies LibraryMovie[]
-  songs  LibrarySong[]
+  id              Int               @id @default(autoincrement())
+  user            User              @relation(fields: [userId], references: [id])
+  userId          String            @unique
+  movies          LibraryMovie[]
+  playlists       Playlist[]
 }
 
 model LibraryMovie {
@@ -63,10 +134,14 @@ model LibraryMovie {
   movieId   Int
 }
 
-model LibrarySong {
-  id        Int     @id @default(autoincrement())
-  library   Library @relation(fields: [libraryId], references: [id], onDelete: Cascade)
+model Playlist {
+  id        Int      @id @default(autoincrement())
+  name      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  songs     Song[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  library   Library  @relation(fields: [libraryId], references: [id])
   libraryId Int
-  song      Song    @relation(fields: [songId], references: [id])
-  songId    Int
 }
