@@ -21,7 +21,7 @@ export default async function HomePage() {
         <div className="w-[45%] p-12 flex flex-col justify-center text-left">
           <h2 className="font-bold text-3xl">Enjoy your favorite movies and music.</h2>
           <p>Access a vast library of streaming content with our app.</p>
-          <Link href={"/"} className="bg-indigo-700 rounded-md p-2 hover:bg-indigo-500 w-1/4 text-center font-bold mt-2">Get Start</Link>
+          <Link href={"/library"} className="bg-indigo-700 rounded-md p-2 hover:bg-indigo-500 w-1/4 text-center font-bold mt-2">Get Start</Link>
         </div>
         <div className="w-[55%] rounded p-12 ">
           <Image

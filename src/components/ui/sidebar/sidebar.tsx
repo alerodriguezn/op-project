@@ -1,38 +1,41 @@
 "use client";
 
-// import { logout } from "@/actions";
-// import { useUIStore } from "@/store/ui/ui-store";
-// import clsx from "clsx";
-// import { useSession } from "next-auth/react";
-// import Link from "next/link";
-// import {
-//   IoClipboardOutline,
-//   IoCloseOutline,
-//   IoLogIn,
-//   IoLogInOutline,
-//   IoLogOutOutline,
-//   IoPeopleOutline,
-//   IoPersonOutline,
-//   IoSearchOutline,
-//   IoShirtOutline,
-//   IoTicketOutline,
-// } from "react-icons/io5";
-// import { AdminOptions } from "./ui/AdminOptions";
+
+import { signIn,signOut  } from "next-auth/react";
+import { useUIStore } from "@/store/uiStore";
+import clsx from "clsx";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import {
+  IoCloseOutline,
+  IoLibrary,
+  // IoLogIn,
+  IoLogInOutline,
+  IoLogOutOutline,
+  IoMusicalNotes,
+  IoVideocamSharp,
+} from "react-icons/io5";
+
 
 export const Sidebar = () => {
-//   const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
-//   const closeMenu = useUIStore((state) => state.closeSideMenu);
+  const isSideMenuOpen = useUIStore((state) => state.isSideMenuOpen);
+  const closeMenu = useUIStore((state) => state.closeSideMenu);
 
-//   const { data: session } = useSession();
+  const { data: session } = useSession();
 
-//   const isAuthenticated = !!session?.user;
+  const isAuthenticated = !!session?.user;
 
-//   const isAdmin = session?.user.role === "admin";
+  // const isAdmin = session?.user.role === "admin";
+
+  const handleLogin = async () => {
+    signIn();
+    closeMenu();
+  }
 
 
   return (
-    <div className="">
-      {/* {isSideMenuOpen && (
+    <div >
+      {isSideMenuOpen && (
         <div className="fixed top-0 left-0 w-screen h-screen z-10 bg-black opacity-30 " />
       )}
 
@@ -45,7 +48,7 @@ export const Sidebar = () => {
 
       <nav
         className={clsx(
-          "fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
+          "fixed p-5 right-0 top-0 w-[500px] h-screen bg-[#0a0a0a] z-20 shadow-2xl transform transition-all duration-300",
           {
             "translate-x-0": isSideMenuOpen,
             "translate-x-full": !isSideMenuOpen,
@@ -54,45 +57,44 @@ export const Sidebar = () => {
       >
         <IoCloseOutline
           size={50}
-          className="absolute top-5 right-5 cursor-pointer"
+          className="absolute top-5 right-5 cursor-pointer mb-2"
           onClick={() => closeMenu()}
         />
-
-        <div className="relative mt-14">
-          <IoSearchOutline size={20} className="absolute top-2 left-2" />
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500"
-          />
-        </div>
 
         {isAuthenticated && (
           <>
             <Link
-              href={`/profile`}
+              href={`/movies`}
               onClick={() => closeMenu()}
-              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+              className="flex items-center mt-10 p-2 hover:bg-gray-800 rounded transition-all"
             >
-              <IoPersonOutline size={30} />
-              <span className="ml-3 text-xl">Profile</span>
+              <IoVideocamSharp size={30} />
+              <span className="ml-3 text-xl">Movies</span>
             </Link>
 
             <Link
-              href={`/orders`}
+              href={`/music`}
               onClick={() => closeMenu()}
-              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+              className="flex items-center mt-10 p-2 hover:bg-gray-800 rounded transition-all"
             >
-              <IoClipboardOutline size={30} />
-              <span className="ml-3 text-xl">Orders</span>
+              <IoMusicalNotes size={30} />
+              <span className="ml-3 text-xl">Music</span>
+            </Link>
+            <Link
+              href={`/library`}
+              onClick={() => closeMenu()}
+              className="flex items-center mt-10 p-2 hover:bg-gray-800 rounded transition-all"
+            >
+              <IoLibrary  size={30} />
+              <span className="ml-3 text-xl">Library</span>
             </Link>
           </>
         )}
 
         {isAuthenticated && (
           <button
-            onClick={() => logout()}
-            className="flex w-full items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+            onClick={() => signOut()}
+            className="flex w-full items-center mt-10 p-2 hover:bg-gray-800 rounded transition-all"
           >
             <IoLogOutOutline size={30} />
             <span className="ml-3 text-xl">Logout</span>
@@ -100,22 +102,22 @@ export const Sidebar = () => {
         )}
 
         {!isAuthenticated && (
-          <Link
-            href={`/auth/login`}
-            onClick={() => closeMenu()}
-            className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+          <button
+    
+            onClick={() => handleLogin()}
+            className="flex items-center mt-10 p-2 hover:bg-gray-800 rounded transition-all"
           >
             <IoLogInOutline size={30} />
             <span className="ml-3 text-xl">Login</span>
-          </Link>
+          </button>
         )}
 
         
 
         
 
-        {isAdmin && <AdminOptions />}
-      </nav> */}
+        {/* {isAdmin && <AdminOptions />} */}
+      </nav>
     </div>
   );
 };

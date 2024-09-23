@@ -17,20 +17,16 @@ export const CardSongPlayer = ({ song, playlists }: Props) => {
     (state) => state
   );
 
-  const handleClick = () => {
-    if (isPlaying) {
-      setIsPlaying(false);
-      return;
-    }
-    setCurrentMusic({ song, songs: [song] });
-    setIsPlaying(!isPlaying);
-  };
+  const handleClick = (song: Song) => {
+    setCurrentMusic({ song, songs: [song] })
+    setIsPlaying(true)
+  }
 
   return (
     <div className="bg-zinc-800 rounded-md p-2 flex items-center justify-between">
       <div className="flex justify-center items-center">
         <button
-          onClick={handleClick}
+          onClick={() => handleClick(song)}
           className="card-play-button rounded-full bg-green-500 p-4 hover:scale-105 transition hover:bg-green-400"
         >
           {isPlaying ? <Pause /> : <Play />}
