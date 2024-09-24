@@ -8,6 +8,8 @@ export const createMovie = async (data: {
   sinopsis: string;  // Añadir la propiedad requerida
   genre: string;
   url: string;
+  rating: number;
+  imageUrl: string;
   duration: number;
   releaseDate: Date;
 }) => {

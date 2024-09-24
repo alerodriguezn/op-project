@@ -96,6 +96,7 @@ model Movie {
   sinopsis        String
   genre           String
   url             String
+  imageUrl        String?
   duration        Int
   rating          Float?
   releaseDate     DateTime

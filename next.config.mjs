@@ -2,6 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
+
       remotePatterns: [
         {
           protocol: 'https',
@@ -10,6 +11,10 @@ const nextConfig = {
         {
           protocol: 'https',
           hostname: 'via.placeholder.com', // Añade este dominio
+        },
+       {
+                protocol:"https",
+                hostname:"image.tmdb.org"
         },
       ],
     },

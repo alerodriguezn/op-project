@@ -22,7 +22,11 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
 
   const handleDelete = async () => {
     try {
-      await deleteMovie(movie.id);  // Eliminar película
+
+      if (!session?.user) {
+        throw new Error("Usuario no autenticado");
+      }
+      await deleteMovie(movie.id, session?.user.id);  
       console.log(`Película ${movie.title} eliminada.`);
     } catch (error) {
       console.error("Error eliminando la película:", error);
