@@ -1,11 +1,10 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/auth.config";
 
-export const deleteMovie = async (movieId: number) => {
-  const session = await auth();
+export const deleteMovie = async (movieId: number, userRole: string) => {
 
-  if (session?.user.role !== "admin") {
+
+  if (userRole !== "admin") {
     throw new Error("No tienes permisos para realizar esta acción");
   }
 

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Song } from "@/interfaces/song";
+import { Song } from "@prisma/client";
 
 
 interface State {

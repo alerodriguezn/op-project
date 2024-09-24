@@ -1,16 +1,29 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 
-export const getMoviesFromLibrary = async (libraryId?: number, userId?: string) => {
+export const getMoviesFromLibrary = async (userId: string) => {
   try {
-    const library = await prisma.library.findFirst({
+    const movies = await prisma.library.findUnique({
       where: {
-        OR: [{ id: libraryId }, { userId: userId }],
+        userId: userId,
       },
-      include: { movies: true },
+      include: {
+        movies: {
+          include: {
+            movie: true,
+          },
+        },
+      },
     });
 
-    return library?.movies || [];
+    const allMovies = movies?.movies.map(libraryMovie => libraryMovie.movie);
+
+    if (!allMovies) {
+      throw new Error("No se encontraron películas en la biblioteca");
+    }
+
+    return allMovies
+
   } catch (error) {
     console.error("Error obteniendo películas de la biblioteca", error);
   }

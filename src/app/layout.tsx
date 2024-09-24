@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-// import localFont from "next/font/local";
+import { Providers } from "@/components/providers/Providers";
 import "./globals.css";
 import { Inter, Montserrat_Alternates } from "next/font/google";
-
 
 export const inter = Inter({ subsets: ["latin"] });
 export const titleFont = Montserrat_Alternates({
   subsets: ["latin"],
   weight: ["500", "700"],
 });
-
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -34,10 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className}  antialiased`}
-      >
-        {children}
+      <body className={`${inter.className}  antialiased`}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

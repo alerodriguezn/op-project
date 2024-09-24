@@ -2,17 +2,19 @@ import { getPlaylistsByUser } from "@/actions/get-playlists-by-user";
 import { auth } from "@/auth.config";
 import { Clapperboard, Headphones, Library } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function LibraryPage() {
   const session = await auth();
 
-  const playlists = await getPlaylistsByUser(session!.user.id);
-
   const user = session?.user;
 
   if (!user) {
-    return <p>Not authenticated</p>;
+    redirect("/");
   }
+
+  const playlists = await getPlaylistsByUser(session!.user.id);
+  
 
   console.log(playlists![0].songs);
 
@@ -31,7 +33,7 @@ export default async function LibraryPage() {
         <div className="absolute inset-0 bg-[url('/imgs/music.jpg')] bg-cover bg-center opacity-60 rounded-lg"></div>
       </Link>
 
-      <Link href={""} className="relative flex justify-center items-center h-[200px] bg-cover bg-center rounded-lg hover:scale-105 transition-all ">
+      <Link href={"/library/movies"} className="relative flex justify-center items-center h-[200px] bg-cover bg-center rounded-lg hover:scale-105 transition-all ">
         <span className="flex justify-center items-center gap-2 z-10">
           <Clapperboard size={40} />
           <p className="text-3xl font-bold">My Movies</p>

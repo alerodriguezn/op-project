@@ -29,8 +29,8 @@ export default async function GenrePage({ params }: Props) {
   return (
     <div className="w-full flex flex-col items-center ">
       <div className="w-1/2 ">
-        <h2 className="text-2xl font-bold">{name} Music </h2>
-        <div className="flex flex-col justify-center">
+        <h2 className="text-2xl font-bold capitalize">{name} Music </h2>
+        <div className="flex flex-col justify-center gap-2">
           {songs.map((song) => (
             <CardSongPlayer key={song.id} song={song} playlists={playlists} />
           ))}

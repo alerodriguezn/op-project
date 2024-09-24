@@ -19,11 +19,11 @@ export default function MusicPage() {
       <section className="w-1/2">
         <h2 className="text-2xl font-bold mb-2">Categories</h2>
         <div className="grid grid-cols-4 gap-2">
-          <Link href={"/"} className=" flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
+          <Link href={"/music/genre/pop"} className=" flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <IoIosMusicalNote size={35}/>
             <h3>Pop</h3>
           </Link>
-          <Link href={"/music/genre/Rock"} className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
+          <Link href={"/music/genre/rock"} className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <GiGuitarBassHead size={35}/>
             <h3>Rock</h3>
           </Link>

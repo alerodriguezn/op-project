@@ -1,8 +1,11 @@
 import { getAllSongs } from "@/actions/get-all-songs";
 import { CardSongAdmin } from "@/components/music/card-song-admin";
 import NewSongModal from '@/components/music/new-song-modal';
+import NewMovieModal from '@/components/movies/new-movie-modal';
+
 
 export default async function AdminPage() {
+
   const songs = await getAllSongs();
 
   return (
@@ -10,7 +13,7 @@ export default async function AdminPage() {
       <section className="w-1/2 ">
         <h2 className="font-bold text-xl">All Songs</h2>
 
-        <NewSongModal/>
+        <NewSongModal />
 
         <div className="flex flex-col gap-2 mt-4">
           {songs ? (
@@ -22,7 +25,12 @@ export default async function AdminPage() {
       </section>
 
       <section className="w-1/2 ">
-        <h2>All Movies</h2>
+        <h2 className="font-bold text-xl">All Movies</h2>
+
+          <NewMovieModal/>
+
+
+
       </section>
     </div>
   );
