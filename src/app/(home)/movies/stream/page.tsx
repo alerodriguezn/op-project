@@ -20,6 +20,7 @@ export default function StreamPage() {
      
         {videoUrl && (
           <video
+   
             controls
             width="1000"
             src={videoUrl}
