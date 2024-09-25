@@ -3,6 +3,7 @@ import { auth } from "@/auth.config";
 import Image from "next/image";
 import { Play } from "lucide-react";
 import Link from "next/link";
+import { DeleteMovieButton } from "@/components/movies/delete-movie-button";
 
 export default async function LibraryMoviesPage() {
   const session = await auth();
@@ -20,7 +21,10 @@ export default async function LibraryMoviesPage() {
       <div className="flex flex-col gap-2 mt-4 w-full">
         {movies ? (
           movies.map((movie) => (
-            <div key={movie.id} className="flex justify-between items-center gap-2 w-full bg-zinc-800 p-2 rounded-lg">
+            <div
+              key={movie.id}
+              className="flex justify-between items-center gap-2 w-full bg-zinc-800 p-2 rounded-lg"
+            >
               <div className="flex items-center gap-2">
                 <Image
                   src={movie.imageUrl || "placeholder.svg"}
@@ -33,14 +37,20 @@ export default async function LibraryMoviesPage() {
                 <h3 className="text-xl font-bold antialiased">{movie.title}</h3>
               </div>
               <div className="flex items-center gap-4">
-                <Link href={"/"} className="bg-blue-800 text-white py-2 px-4 rounded-lg font-bold flex items-center gap-2">
-                  <Play size={24} />
+                <Link
+                  href={{
+                    pathname: `/movies/stream/`,
+                    query: { url: movie.url },
+                  }}
+                  className="bg-blue-800 text-white py-2 px-4 rounded-lg font-bold flex items-center gap-2"
+                >
+                  <Play size={20} />
                   Play
                 </Link>
-                <button className="bg-red-800 text-white py-2 px-4 rounded-lg font-bold flex items-center gap-2">
-                  Remove
-                </button>
-
+                <DeleteMovieButton
+                  userId={session.user.id}
+                  movieId={movie.id}
+                />
               </div>
             </div>
           ))

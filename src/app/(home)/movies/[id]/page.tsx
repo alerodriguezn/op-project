@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { getMovieInfo } from "@/actions/get-movie-info";
 import { Play } from "lucide-react";
+import Link from "next/link";
+import { AddMovieToLibraryButton } from '@/components/movies/add-movie-button';
+import { auth } from "@/auth.config";
 
 interface Props {
   params: {
@@ -9,6 +12,13 @@ interface Props {
 }
 
 export default async function MoviePage({ params }: Props) {
+
+  const session = await auth();
+
+  if (!session?.user) {
+    return <div>Unauthorized</div>;
+  }
+
   const movie = await getMovieInfo(params.id);
 
   //TODO: Implement the UI for this page
@@ -49,18 +59,24 @@ export default async function MoviePage({ params }: Props) {
             {movie.sinopsis}
           </p>
 
-            {/* Add to Library and Play Movie */}
-            <div className="flex gap-4 mt-4">
-                <button className="bg-green-800 text-white py-2 px-4 rounded-lg font-bold">
-                    Add to Library
-                </button>
-                <button className="bg-blue-800 text-white py-2 px-4 rounded-lg font-bold flex items-center gap-2">
-                    <Play size={20} />
-                    Play
-                </button>
-            </div>
-         
-         
+          {/* Add to Library and Play Movie */}
+          <div className="flex gap-4 mt-4">
+            <AddMovieToLibraryButton 
+              userId={ session.user.id }
+              movieId={movie.id}
+            />
+            {/* Pass the url movie as query  */}
+            <Link
+              href={{
+                pathname: `/movies/stream/`,
+                query: { url: movie.url },
+              }}
+              className="bg-blue-800 text-white py-2 px-4 rounded-lg font-bold flex items-center gap-2"
+            >
+              <Play size={20} />
+              Play
+            </Link>
+          </div>
         </div>
       </div>
     </div>

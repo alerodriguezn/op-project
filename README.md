@@ -17,7 +17,7 @@
 - [**Azure Load Balancer**](https://azure.microsoft.com/es-es/products/load-balancer/) - Load balances Internet and private network traffic with high performance and low latency.
 
 
-## 🚀 Getting Started
+## 🚀 Getting Started (Frontend)
 
 > [!IMPORTANT]
 > You will need an Azure Account to run this project. You can create a free account [here](https://azure.microsoft.com/en-us/free/).
@@ -28,6 +28,51 @@ You will need:
 - [Git](https://git-scm.com/).
 - [PostgreSQL](https://www.postgresql.org/).
 - [Azure Account](https://azure.microsoft.com/en-us/free/).
+
+
+```bash
+git clone git@github.com:your_username/op-project.git
+```
+
+2. Install dependencies:
+
+```bash
+cd op-project
+
+npm install
+```
+
+3. Create a `.env` file in the root of the project with the following content:
+
+```bash
+
+POSTGRES_URL=""
+POSTGRES_PRISMA_URL=""
+POSTGRES_URL_NO_SSL=""
+POSTGRES_URL_NON_POOLING=""
+POSTGRES_USER=""
+POSTGRES_HOST=""
+POSTGRES_PASSWORD=""
+POSTGRES_DATABASE=""
+AUTH_SECRET="" 
+AUTH_GITHUB_ID=""
+AUTH_GITHUB_SECRET=""
+```
+
+4. Run the project:
+
+```bash
+npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+## 🚀 Setup Backend
+
+
+
+
 
 
 

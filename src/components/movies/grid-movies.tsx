@@ -37,6 +37,7 @@ const GridMovies = () => {
         {movies.map((movie) => (
           <MovieCard 
             key={movie.id} 
+            id={movie.id}
             title={movie.title} 
             imageUrl={movie.imageUrl || 'placeholder.svg'} //Aqui ese url esta mal, esta enviando el url del video. 
           />
