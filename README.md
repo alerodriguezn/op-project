@@ -21,8 +21,8 @@
 <div align="center">
 <a href="#">
 <img src="public/imgs/diagram.jpg" style="
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
 ">
 </a>
 <p></p>
