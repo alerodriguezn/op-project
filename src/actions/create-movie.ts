@@ -1,6 +1,5 @@
 "use server";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/auth.config";  // Validar si es admin
 
 export const createMovie = async (data: {
   title: string;
@@ -13,11 +12,6 @@ export const createMovie = async (data: {
   duration: number;
   releaseDate: Date;
 }) => {
-  const session = await auth();
-
-  if (session?.user.role !== "admin") {
-    throw new Error("No tienes permisos para realizar esta acción");
-  }
 
   try {
     await prisma.movie.create({

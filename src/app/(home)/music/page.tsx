@@ -27,14 +27,14 @@ export default function MusicPage() {
             <GiGuitarBassHead size={35}/>
             <h3>Rock</h3>
           </Link>
-          <Link href={"/music/genre/HipHop"} className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
+          <Link href={"/music/genre/hip-hop"} className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <PiMicrophoneStageBold size={35}/>
             <h3>Hip Hop</h3>
           </Link>
-          <div className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
+          <Link href={"/music/genre/classic"} className="flex flex-col justify-center items-center bg-zinc-800 p-4 rounded-md gap-y-2 hover:scale-105 transition-all hover:cursor-pointer">
             <BiSolidPiano size={35}/>
             <h3>Classic</h3>
-          </div>
+          </Link>
         </div>
       </section>
 

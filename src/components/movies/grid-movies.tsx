@@ -15,6 +15,7 @@ interface Movie {
   rating: number | null;
   releaseDate: Date;
   createdAt: Date;
+  imageUrl: string | null;
   updatedAt: Date;
 }
 
@@ -36,8 +37,9 @@ const GridMovies = () => {
         {movies.map((movie) => (
           <MovieCard 
             key={movie.id} 
+            id={movie.id}
             title={movie.title} 
-            imageUrl={movie.url} //Aqui ese url esta mal, esta enviando el url del video. 
+            imageUrl={movie.imageUrl || 'placeholder.svg'} //Aqui ese url esta mal, esta enviando el url del video. 
           />
         ))}
       </div>
